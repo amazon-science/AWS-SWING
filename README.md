@@ -1,26 +1,21 @@
-# Mitigating Missing Information for Dialogue Summarization
+# SWING 🏌️: Balancing Coverage and Faithfulness for Dialogue Summarization
 
-**Author**: Steeve Huang (@khshuang, [khhuang3@illinois.edu](mailto:khhuang3@illinois.edu)).
 
-## Abstract (not finalized)
-
-We aim to reduce the factual inconsistency problem faced by text generation model. Specifically, we are interested in addressing the "missing information" challenge in abstractive summarization for dialogue. 
-
-While prior work has achieved improvements on other categories of factual inconsistency errors, such as modality error and object error, missing information has remained unsolved. In this work, we aim to address this issue by providing finer-grainer training signals to the generators in addition to maximum likelihood estimation.
+**Authors**: Kung-Hsiang Huang ([khhuang3@illinois.edu](mailto:khhuang3@illinois.edu)), Siffi Singh, Xiaofei Ma, Wei Xiao, Feng Nan, Nicholas Dingwall, William Yang Wang, Kathleen McKeown .
 
 ## Dependencies
 First, create a virtual environment and install depednencies specified in requirements.txt
 
 ```
-conda create -n ds python=3.7
+conda create -n ds python=3.8
 conda activate ds
 pip install -r requirements.txt
 ```
 
-Then, create separate enviroments for BARTScore and FactCC, following the [BARTScore instruction](https://github.com/neulab/BARTScore) and [FactCC instruction](https://github.com/salesforce/factCC).
+Then, create separate enviroments for BARTScore and FactCC, following the instructions for [BARTScore](https://github.com/neulab/BARTScore) and [FactCC](https://github.com/salesforce/factCC).
 
 ## Data
-The preprocessed data can be downloaded from [here](https://s3.console.aws.amazon.com/s3/upload/khshuang-intern-data?region=us-west-2) (`dialogsum.zip` and `samsum.zip`). Please create a `data` folder and unzip these two files into this folder.
+The preprocessed data can be downloaded from [here](https://drive.google.com/drive/u/3/folders/1PRGuqv-FD5SmI3oyj90YKr_KVaJueFvw) (`dialogsum.zip` and `samsum.zip`). Please create a `data` folder and unzip these two files into this folder.
 
 
 ## Training
@@ -40,7 +35,7 @@ Training parameters are specified in `args.py`. You can specify each the value o
 
 --use_nli: Enable this will train a generator with the NLIBART class, which is also proposed model.
 
---do_invalid: Do contrastive learning. (Invalid loss is the name we gave in the early stage of the internship)
+--do_invalid: Do contrastive learning. (Invalid loss is the name we gave in the early stage of the experiment)
 
 --do_uncovered: Do uncovered loss.
 
@@ -48,14 +43,14 @@ Training parameters are specified in `args.py`. You can specify each the value o
 
 --data_dir: (Deprecated) Directory of the input data. Specifying --dataset would affect this parameter.
 
---use_robust: (Deprecated) Do MLE with adversarial training. This was used in the early stage of the internship.
+--use_robust: (Deprecated) Do MLE with adversarial training. This was used in the early stage of the experiment.
 
---do_factcc_validate: (Deprecated) Use FactCC to further validate the goodness of the generated summary. Not used in the final version.
+--do_factcc_validate: (Deprecated) Use FactCC to further validate the goodness of the generated summary. Not used in the final solution.
 
---do_factcc_uncovered: (Deprecated) Not used in the final version.
+--do_factcc_uncovered: (Deprecated) Not used in the final solution.
 ```
 
-The trained checkpoints can be found in [here](https://s3.console.aws.amazon.com/s3/buckets/khshuang-intern-data?region=us-west-2&tab=objects) (`*_checkpoint_best.zip`) for reproduction purposes.
+The trained checkpoints can be found in [here](https://drive.google.com/drive/folders/1zeqppst-YJPvonN0TNruRqWwDc-rsuV6?usp=sharing) (`[dialogsum|samsum]_best/best.pt`) for research purposes.
 
 
 ## Evaluation
@@ -66,16 +61,28 @@ To run evaluation on trained models, execute the `test.py` script as follows:
  python test.py --checkpoint_path $PATH_TO_MODEL/best.pt
 ```
 
-If you already have outputs generated (e.g. our training script would produce a `$PATH_TO_OUTOUT/test_pred.json`), you can directly run the following command to save time by avoiding running inference again.
+If you already have your generated summaries (e.g. our training script would produce a `$PATH_TO_OUTOUT/test_pred.json`), you can directly run the following command to avoid running inference again and save time.
 
 ```
 python test_file.py --dataset samsum --output_file $PATH_TO_OUTOUT/test_pred.json
 ```
 
 
-If there is any issue, please contact 
-## References
+## Citation
 
-- [Pre-approval ticket](https://issues.amazon.com/issues/SCIPUB1a-791)
-
-
+```bibtex
+@inproceedings{huang-etal-2023-swing,
+    title = "SWING 🏌️: Balancing Coverage and Faithfulness for Dialogue Summarization",
+    author = "Huang, Kung-Hsiang  and
+      Singh, Siffi  and
+      Ma, Xiaofei  and
+      Xiao, Wei  and
+      Nan, Feng  and
+      Dingwall, Nicholas  and
+      Wang, William Yang  and
+      McKeown, Kathleen",
+    booktitle = "Findings of the Association for Computational Linguistics: EACL 2023",
+    year = "2023",
+    publisher = "Association for Computational Linguistics",
+}
+```

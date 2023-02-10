@@ -51,15 +51,7 @@ else:
     model = FCBART(args.model_name, args).cuda()
 assert not (args.use_robust and args.use_nli), "only one of these argument can be true: use_robust, use_nli"
 
-# Load MLE-trained model. These are for debugging purposes.
-if args.debug:
-    if 'bart-large' in args.model_name:
-        pretrained_path='outputs/samsum_bart_large_ep-10_lr-3e-5_wd-1e-3_we-0_bs-8/best.pt'
-    else:
-        pretrained_path='outputs/samsum_bart_base_ep-10_lr-3e-5_wd-1e-3_we-0_bs-8/best.pt'
-    checkpoint = torch.load(pretrained_path)
-    print(f"Loading pre-trained ckpt from {pretrained_path}")
-    model.load_state_dict(checkpoint['model'], strict=False)    
+
 
 # Load data
 if args.dataset == SAMSUM:

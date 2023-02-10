@@ -1,0 +1,5 @@
+torch==1.11.0
+transformers==4.19.2
+py-rouge==1.1
+nltk
+pandas

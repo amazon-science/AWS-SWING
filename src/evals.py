@@ -1,6 +1,6 @@
 import numpy as np
 import rouge
-from bart_score import BARTScorer
+
 from nltk import sent_tokenize
 from transformers import BertForSequenceClassification, AutoTokenizer
 import torch
@@ -47,6 +47,7 @@ def compute_rouge(preds, golds, return_all=False):
 
 
 def compute_bart_score(preds, golds, reverse=False, return_all=False):
+    from bart_score import BARTScorer
     bart_scorer = BARTScorer(device='cuda:0', checkpoint='facebook/bart-large-cnn')
 
     if reverse:

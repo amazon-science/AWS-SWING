@@ -9,7 +9,7 @@ import random
 import time
 import os
 from model import FCBART, RobustBART, NLIBART
-from evals import compute_rouge, compute_bart_score
+from evals import compute_rouge#, compute_bart_score
 from args import create_args
 from data import SummDataset
 from constants import DIALOGSUM, SAMSUM
@@ -107,11 +107,11 @@ with torch.no_grad():
         # if args.test_rouge:
         test_scores = compute_rouge(test_outputs, test_labels)
         print(test_scores)
-        test_scores = compute_bart_score(test_outputs, test_labels)
+        # test_scores = compute_bart_score(test_outputs, test_labels)
         # 
-        test_f1 = test_scores['avg_r']
-        print(test_scores)
-        print(f"Test F1: {test_f1:.4f}. ")
+        # test_f1 = test_scores['avg_r']
+        # print(test_scores)
+        # print(f"Test F1: {test_f1:.4f}. ")
     
     print("saving to", test_output_file)
     with open(test_output_file,'w') as f:
