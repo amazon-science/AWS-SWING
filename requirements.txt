@@ -1,5 +1,5 @@
 torch==1.13.1
-transformers==4.36.0
+transformers==4.38.0
 py-rouge==1.1
 nltk
 pandas
